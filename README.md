@@ -2,7 +2,7 @@
 
 Projeto do Laboratório 02 de Desenvolvimento e Integração de Aplicações Web, do curso de Engenharia de Software da PUC Minas.
 
-**Professor:** João Paulo Carneiro Aramuni  
+**Professor:** João Paulo Carneiro Aramuni
 **Aluno:** Brayan Mendes de Carvalho
 
 ## Sobre o projeto
@@ -11,7 +11,7 @@ O sistema permite que clientes cadastrem, consultem, alterem e cancelem pedidos 
 
 ## Status
 
-Repositório em organização. Esta primeira publicação reúne a especificação e a modelagem do sistema. O código da aplicação será incorporado em commits posteriores.
+Repositório em organização. Já foram publicados a especificação, a modelagem UML e a configuração inicial do back-end com Maven, Java 25 e Spring Boot 4. As funcionalidades da aplicação serão incorporadas em commits posteriores.
 
 ## Funcionalidades previstas no laboratório
 
@@ -46,7 +46,14 @@ Documentação:
 
 ## Instalação e execução
 
-As instruções de instalação acompanharão a publicação do código. Os pré-requisitos são JDK 25, Maven, Node.js e um projeto PostgreSQL no Supabase.
+Pré-requisitos desta etapa: JDK 25 e Apache Maven 3.9 ou superior.
+
+Para compilar a estrutura inicial do back-end:
+
+    cd backend
+    mvn compile
+
+Esta etapa publica a classe principal e as dependências do projeto. A configuração do banco, as funcionalidades e as instruções para executar o sistema completo acompanharão os próximos commits. O front-end utilizará Node.js, React e Vite, e o banco será PostgreSQL no Supabase.
 
 ## Autor
 
