@@ -1,0 +1,108 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+enum Papel {
+  CLIENTE
+  EMPRESA
+  BANCO
+  ADMIN
+}
+class Usuario {
+  +id: Long
+  +username: String
+  +senha: String [BCrypt, não serializada]
+  +nome: String
+  +papel: Papel
+}
+class Cliente {
+  +id: Long [mesmo ID de Usuario]
+  +nome: String
+  +rg: String
+  +cpf: String
+  +endereco: String
+  +profissao: String
+  +empregos: List<Emprego>
+}
+class "Cliente.Emprego" as Emprego {
+  +empregador: String
+  +rendimento: BigDecimal
+}
+class Automovel {
+  +id: Long
+  +matricula: String
+  +ano: int
+  +marca: String
+  +modelo: String
+  +placa: String
+  +diaria: BigDecimal
+  +proprietarioTipo: Papel
+  +proprietarioNome: String
+  +categoria: String
+  +imagemUrl: String
+  +imagemFonte: String
+  +imagemCredito: String
+}
+enum "Pedido.Status" as Status {
+  EM_ANALISE
+  APROVADO
+  REPROVADO
+  CANCELADO
+  CONTRATADO
+}
+class Pedido {
+  +id: Long
+  +versao: Long
+  +clienteId: Long
+  +automovel: Automovel
+  +inicio: LocalDate
+  +fim: LocalDate
+  +status: Status
+  +total: BigDecimal
+  +observacoes: String
+  +parecer: String
+  +agenteId: Long
+  +criadoEm: Instant
+}
+class Contrato {
+  +id: Long
+  +pedidoId: Long
+  +clienteId: Long
+  +proprietarioTipo: Papel
+  +proprietarioNome: String
+  +bancoId: Long [opcional]
+  +valorCredito: BigDecimal [opcional]
+  +parcelas: Integer [opcional]
+  +emitidoEm: Instant
+}
+class LocacaoService <<Service>> {
+  +register(Cadastro): Usuario
+  +updateClient(Usuario, id, Cliente): Cliente
+  +deleteClient(Usuario, id)
+  +create(Usuario, PedidoInput): Pedido
+  +update(Usuario, id, PedidoInput): Pedido
+  +cancel(Usuario, id): Pedido
+  +evaluate(Usuario, id, Avaliacao): Pedido
+  +contract(Usuario, id, ContratoInput): Contrato
+  +createAgent(Usuario, AgenteInput): Usuario
+}
+Usuario --> Papel
+Usuario "1" -- "0..1" Cliente : ID compartilhado
+Cliente "1" *-- "0..3" Emprego
+Cliente "1" -- "0..*" Pedido : clienteId
+Automovel "1" <-- "0..*" Pedido : associação JPA
+Usuario "0..1" -- "0..*" Pedido : agenteId (avaliador)
+Pedido --> Status
+Pedido "1" -- "0..1" Contrato : pedidoId único
+Cliente "1" -- "0..*" Contrato : clienteId
+Usuario "0..1" -- "0..*" Contrato : bancoId (somente BANCO)
+LocacaoService ..> Usuario
+LocacaoService ..> Cliente
+LocacaoService ..> Pedido
+LocacaoService ..> Contrato
+note right of Contrato
+  Crédito opcional representado por
+  bancoId + valorCredito + parcelas.
+  Proprietário: CLIENTE, EMPRESA ou BANCO.
+  ADMIN não é proprietário nem concedente.
+end note
+@enduml

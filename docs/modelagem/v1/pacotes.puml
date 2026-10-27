@@ -1,0 +1,54 @@
+@startuml
+left to right direction
+package "Subsistema de apresentação web" {
+  package "frontend/src" {
+    [main.jsx: telas React] as Telas
+    [api.js: HTTP + sessão + CSRF] as Http
+    [style.css] as Estilo
+  }
+}
+package "Subsistema de gestão de pedidos e contratos" {
+  package "br.com.locar.config" {
+    [SecurityConfig] as Seguranca
+    [InitialData] as Inicial
+  }
+  package "br.com.locar.controller" {
+    [ApiController] as Controller
+    [ApiErrors] as Errors
+  }
+  package "br.com.locar.service" {
+    [LocacaoService] as Servico
+  }
+  package "br.com.locar.repository" {
+    [UsuarioRepository]
+    [ClienteRepository]
+    [AutomovelRepository]
+    [PedidoRepository]
+    [ContratoRepository]
+  }
+  package "br.com.locar.model" {
+    [Usuario / Papel]
+    [Cliente / Emprego]
+    [Automovel]
+    [Pedido / Status]
+    [Contrato]
+  }
+  package "resources/db/migration" {
+    [Flyway: V1 / V2] as Migracoes
+  }
+}
+database "Supabase PostgreSQL\n(H2 somente para demo/testes)" as DB
+Telas --> Http
+Telas --> Estilo
+Http --> Controller : HTTP REST
+Seguranca --> Controller : autenticação e CSRF
+Controller --> Servico
+Controller --> Errors : tratamento de erros
+Servico --> "br.com.locar.repository"
+Servico --> "br.com.locar.model"
+"br.com.locar.repository" --> "br.com.locar.model"
+"br.com.locar.repository" --> DB : JPA/JDBC
+Migracoes --> DB
+Inicial --> Servico
+Inicial --> "br.com.locar.repository"
+@enduml

@@ -1,0 +1,67 @@
+@startuml
+left to right direction
+actor Visitante
+actor Cliente
+actor "Agente" as Agente
+actor Empresa
+actor Banco
+actor Administrador
+Empresa --|> Agente
+Banco --|> Agente
+rectangle "Locar — Sistema de Aluguel de Carros" {
+  usecase "Cadastrar cliente" as Cadastro
+  usecase "Autenticar usuário" as Login
+  usecase "Explorar frota" as Frota
+  usecase "Manter próprio cadastro" as Perfil
+  usecase "Introduzir pedido" as Criar
+  usecase "Consultar pedidos e status" as Consultar
+  usecase "Modificar pedido aberto" as Alterar
+  usecase "Cancelar pedido aberto" as Cancelar
+  usecase "Avaliar pedido financeiramente" as Avaliar
+  usecase "Registrar parecer" as Parecer
+  usecase "Emitir contrato aprovado" as Contrato
+  usecase "Associar crédito bancário" as Credito
+  usecase "Registrar proprietário" as Proprietario
+  usecase "Consultar contratos" as Contratos
+  usecase "Manter cadastro de clientes" as Clientes
+  usecase "Cadastrar agentes" as Agentes
+  usecase "Listar usuários" as Usuarios
+}
+Visitante --> Cadastro
+Visitante --> Login
+Cliente --> Login
+Agente --> Login
+Administrador --> Login
+Cliente --> Frota
+Agente --> Frota
+Cliente --> Perfil
+Cliente --> Criar
+Cliente --> Consultar
+Cliente --> Alterar
+Cliente --> Cancelar
+Cliente --> Contratos
+Agente --> Consultar
+Agente --> Alterar
+Agente --> Cancelar
+Agente --> Avaliar
+Agente --> Contrato
+Agente --> Clientes
+Agente --> Contratos
+Avaliar ..> Parecer : <<include>>
+Contrato ..> Proprietario : <<include>>
+Credito ..> Contrato : <<extend>>
+Banco --> Credito
+Administrador --> Usuarios
+Administrador --> Agentes
+Administrador --> Clientes
+Administrador --> Consultar
+Administrador --> Avaliar
+Administrador --> Alterar
+Administrador --> Cancelar
+Administrador --> Contrato
+note bottom of Login
+  Pré-condição de todos os casos de negócio:
+  usuário cadastrado e autenticado.
+  Cadastro e autenticação são públicos.
+end note
+@enduml
