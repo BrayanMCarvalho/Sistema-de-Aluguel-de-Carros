@@ -11,7 +11,7 @@ O sistema permite que clientes cadastrem, consultem, alterem e cancelem pedidos 
 
 ## Status
 
-Repositório em organização. Esta etapa acrescenta as entidades de domínio, os repositórios JPA e as migrações SQL à configuração inicial do back-end. As camadas de serviços, autenticação, API e interface serão publicadas nas próximas etapas.
+Já foram publicados a modelagem, as entidades, os repositórios, as migrações SQL, os serviços de negócio, a configuração de segurança e os perfis de banco. Esta etapa inclui dados de demonstração e o catálogo de 24 veículos. Os controllers da API e a interface React serão publicados nas próximas etapas.
 
 ## Funcionalidades previstas no laboratório
 
@@ -52,6 +52,16 @@ Documentação:
 - Repositórios Spring Data JPA com consultas por cliente e controle de concorrência nos pedidos.
 - Migrações Flyway para tabelas, relacionamentos, restrições e metadados das fotos.
 
+## Serviços e configuração
+
+- Regras de cadastro de clientes, pedidos, avaliação financeira e emissão de contratos.
+- Controle de acesso por cliente, empresa, banco e administrador.
+- Proteção de rotas, autenticação por sessão, senhas BCrypt e CSRF.
+- Perfis de execução: demonstração local com H2 e Supabase PostgreSQL por variáveis de ambiente.
+- Contas de demonstração e catálogo inicial de 24 veículos com fotos e créditos.
+
+O perfil Supabase está preparado, mas a conexão real ainda depende das credenciais do ambiente. Veja [configuração do Supabase](docs/supabase.md).
+
 ## Instalação e execução
 
 Pré-requisitos desta etapa: JDK 25 e Apache Maven 3.9 ou superior.
@@ -61,7 +71,7 @@ Para compilar a estrutura inicial do back-end:
     cd backend
     mvn compile
 
-O código publicado inclui a classe principal, as dependências, as entidades, os repositórios e as migrações SQL. A configuração de execução do banco, os serviços e as instruções para executar o sistema completo acompanharão os próximos commits. O front-end utilizará Node.js, React e Vite, e o banco será PostgreSQL no Supabase.
+O back-end publicado inclui os serviços e as configurações de execução. Os controllers da API e o front-end ainda não fazem parte desta etapa; o fluxo completo pelo navegador será disponibilizado com sua publicação.
 
 ## Autor
 
