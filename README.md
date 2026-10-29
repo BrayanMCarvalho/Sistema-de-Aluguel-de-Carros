@@ -11,7 +11,7 @@ O sistema permite que clientes cadastrem, consultem, alterem e cancelem pedidos 
 
 ## Status
 
-Repositório em organização. Já foram publicados a especificação, a modelagem UML e a configuração inicial do back-end com Maven, Java 25 e Spring Boot 4. As funcionalidades da aplicação serão incorporadas em commits posteriores.
+Repositório em organização. Esta etapa acrescenta as entidades de domínio, os repositórios JPA e as migrações SQL à configuração inicial do back-end. As camadas de serviços, autenticação, API e interface serão publicadas nas próximas etapas.
 
 ## Funcionalidades previstas no laboratório
 
@@ -44,6 +44,14 @@ Documentação:
 - [Modelagem UML v1](docs/modelagem/v1/README.md)
 - [Histórico da modelagem](docs/modelagem/CHANGELOG.md)
 
+## Domínio e persistência
+
+- Entidades: usuário, cliente, automóvel, pedido e contrato.
+- Clientes com até três empregos e respectivos rendimentos.
+- Papéis de cliente, empresa, banco e administrador.
+- Repositórios Spring Data JPA com consultas por cliente e controle de concorrência nos pedidos.
+- Migrações Flyway para tabelas, relacionamentos, restrições e metadados das fotos.
+
 ## Instalação e execução
 
 Pré-requisitos desta etapa: JDK 25 e Apache Maven 3.9 ou superior.
@@ -53,7 +61,7 @@ Para compilar a estrutura inicial do back-end:
     cd backend
     mvn compile
 
-Esta etapa publica a classe principal e as dependências do projeto. A configuração do banco, as funcionalidades e as instruções para executar o sistema completo acompanharão os próximos commits. O front-end utilizará Node.js, React e Vite, e o banco será PostgreSQL no Supabase.
+O código publicado inclui a classe principal, as dependências, as entidades, os repositórios e as migrações SQL. A configuração de execução do banco, os serviços e as instruções para executar o sistema completo acompanharão os próximos commits. O front-end utilizará Node.js, React e Vite, e o banco será PostgreSQL no Supabase.
 
 ## Autor
 
