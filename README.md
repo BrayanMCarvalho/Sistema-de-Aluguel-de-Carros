@@ -11,7 +11,7 @@ O sistema permite que clientes cadastrem, consultem, alterem e cancelem pedidos 
 
 ## Status
 
-Já foram publicados a modelagem, as entidades, os repositórios, as migrações SQL, os serviços de negócio, a configuração de segurança e os perfis de banco. Esta etapa inclui dados de demonstração e o catálogo de 24 veículos. Os controllers da API e a interface React serão publicados nas próximas etapas.
+Back-end publicado com entidades, repositórios, migrações, serviços, segurança, controllers REST e tratamento de erros. O perfil de demonstração funciona com H2 local e 24 veículos. A interface React será publicada na próxima etapa; a conexão real com o Supabase ainda depende das credenciais do ambiente.
 
 ## Funcionalidades previstas no laboratório
 
@@ -43,6 +43,7 @@ Documentação:
 - [Histórias do usuário e regras](docs/requisitos.md)
 - [Modelagem UML v1](docs/modelagem/v1/README.md)
 - [Histórico da modelagem](docs/modelagem/CHANGELOG.md)
+- [Endpoints e permissões da API](docs/api.md)
 
 ## Domínio e persistência
 
@@ -66,12 +67,12 @@ O perfil Supabase está preparado, mas a conexão real ainda depende das credenc
 
 Pré-requisitos desta etapa: JDK 25 e Apache Maven 3.9 ou superior.
 
-Para compilar a estrutura inicial do back-end:
+Para executar a API no perfil de demonstração:
 
     cd backend
-    mvn compile
+    mvn spring-boot:run
 
-O back-end publicado inclui os serviços e as configurações de execução. Os controllers da API e o front-end ainda não fazem parte desta etapa; o fluxo completo pelo navegador será disponibilizado com sua publicação.
+A API atende na porta 8080. As rotas de negócio exigem sessão autenticada e as escritas usam proteção CSRF. O front-end ainda não faz parte desta etapa; o acesso completo pelo navegador acompanhará sua publicação. Consulte a documentação da API para os endpoints de autenticação e operações disponíveis.
 
 ## Autor
 
