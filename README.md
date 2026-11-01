@@ -1,83 +1,142 @@
-# Sistema de Aluguel de Carros
+# Locar — Sistema de Aluguel de Carros
 
-Projeto do Laboratório 02 de Desenvolvimento e Integração de Aplicações Web, do curso de Engenharia de Software da PUC Minas.
+<img src="frontend/public/logo.svg" width="64" alt="Logo Locar" />
 
-**Professor:** João Paulo Carneiro Aramuni
-**Aluno:** Brayan Mendes de Carvalho
+Projeto individual do Laboratório 02 de Desenvolvimento e Integração de Aplicações Web, Engenharia de Software — PUC Minas.
 
-## Sobre o projeto
+**Autor:** Brayan Mendes de Carvalho.
 
-O sistema permite que clientes cadastrem, consultem, alterem e cancelem pedidos de aluguel de automóveis. Empresas e bancos atuam como agentes responsáveis pela avaliação financeira dos pedidos e execução dos contratos aprovados.
+**Professor:** João Paulo Carneiro Aramuni.
 
 ## Status
 
-Back-end publicado com entidades, repositórios, migrações, serviços, segurança, controllers REST e tratamento de erros. O perfil de demonstração funciona com H2 local e 24 veículos. A interface React será publicada na próxima etapa; a conexão real com o Supabase ainda depende das credenciais do ambiente.
+Protótipo completo publicado: back-end, interface web e modelagem. O sistema funciona no perfil de demonstração local. A conexão e a validação na instância real do Supabase são a pendência para concluir a integração do banco exigido pelo laboratório.
 
-## Funcionalidades previstas no laboratório
+## Sobre o projeto
 
-- Cadastro e autenticação com usuário e senha.
-- CRUD de clientes com RG, CPF, nome, endereço, profissão e até três entidades empregadoras e seus rendimentos.
-- Registro de automóveis com matrícula, ano, marca, modelo e placa.
-- Criação, consulta, alteração e cancelamento de pedidos de aluguel.
-- Avaliação financeira por empresas e bancos.
-- Contratos com propriedade de clientes, empresas ou bancos.
-- Associação opcional de crédito concedido por um banco agente.
+A Locar permite que clientes solicitem, consultem, alterem e cancelem pedidos de aluguel. Empresas e bancos avaliam os pedidos financeiramente e emitem contratos após aprovação. Um banco pode associar crédito ao contrato.
+
+## Funcionalidades
+
+- Cadastro de clientes e login obrigatório com usuário e senha.
+- Cadastro com RG, CPF, nome, endereço, profissão e até três empregos/rendimentos.
+- Catálogo de 24 veículos com matrícula, ano, marca, modelo, placa e fotos online com créditos.
+- Criação, consulta, alteração e cancelamento de pedidos.
+- Avaliação financeira por agentes com parecer obrigatório.
+- Contratos com propriedade em nome de cliente, empresa ou banco.
+- Crédito opcional concedido pelo banco autenticado.
+- Administração de usuários e cadastro de empresas e bancos.
+- Controle de acesso por perfil, sessão HTTP, senhas BCrypt e proteção CSRF.
+
+Alterações em pedidos abertos exigem nova análise. A emissão de contratos bloqueia períodos sobrepostos para o mesmo veículo.
 
 ## Tecnologias
 
 | Camada | Tecnologia |
 | --- | --- |
 | Linguagem | Java — JDK 25 |
-| Back-end | Spring Boot 4.0.x, Spring MVC |
+| Back-end | Spring Boot 4.0.9, Spring MVC e Spring Security |
 | Build | Apache Maven |
-| Front-end | React + Vite |
-| Banco de dados | Supabase — PostgreSQL |
-| Autenticação | Spring Security |
+| Front-end | React 19, Vite 7 e CSS |
+| Persistência | Spring Data JPA, Hibernate e Flyway |
+| Banco exigido na entrega | Supabase PostgreSQL |
+| Demonstração local | H2 em modo PostgreSQL |
 
 ## Arquitetura e modelagem
 
-Arquitetura MVC, com subsistemas de apresentação web e gestão de pedidos e contratos. A interface React comunica-se com a API Spring; os dados são persistidos em PostgreSQL.
+Arquitetura MVC com interface React, controllers REST, camada de serviços e repositórios JPA. Dois subsistemas lógicos: apresentação web e gestão de pedidos e contratos.
 
-Documentação:
+```mermaid
+flowchart LR
+    React[React + Vite] -->|HTTP + sessão + CSRF| API[Spring MVC Controllers]
+    API --> Servicos[LocacaoService]
+    Servicos --> JPA[Spring Data JPA]
+    JPA --> Banco[(PostgreSQL / Supabase)]
+```
 
-- [Histórias do usuário e regras](docs/requisitos.md)
-- [Modelagem UML v1](docs/modelagem/v1/README.md)
+- [Requisitos, histórias e regras de negócio](docs/requisitos.md)
+- [Casos de uso, classes e pacotes](docs/modelagem/v1/README.md)
 - [Histórico da modelagem](docs/modelagem/CHANGELOG.md)
 - [Endpoints e permissões da API](docs/api.md)
 
-## Domínio e persistência
-
-- Entidades: usuário, cliente, automóvel, pedido e contrato.
-- Clientes com até três empregos e respectivos rendimentos.
-- Papéis de cliente, empresa, banco e administrador.
-- Repositórios Spring Data JPA com consultas por cliente e controle de concorrência nos pedidos.
-- Migrações Flyway para tabelas, relacionamentos, restrições e metadados das fotos.
-
-## Serviços e configuração
-
-- Regras de cadastro de clientes, pedidos, avaliação financeira e emissão de contratos.
-- Controle de acesso por cliente, empresa, banco e administrador.
-- Proteção de rotas, autenticação por sessão, senhas BCrypt e CSRF.
-- Perfis de execução: demonstração local com H2 e Supabase PostgreSQL por variáveis de ambiente.
-- Contas de demonstração e catálogo inicial de 24 veículos com fotos e créditos.
-
-O perfil Supabase está preparado, mas a conexão real ainda depende das credenciais do ambiente. Veja [configuração do Supabase](docs/supabase.md).
-
 ## Instalação e execução
 
-Pré-requisitos desta etapa: JDK 25 e Apache Maven 3.9 ou superior.
+Pré-requisitos: **JDK 25**, **Maven 3.9+**, **Node.js 22.12+** e npm.
 
-Para executar a API no perfil de demonstração:
+Em dois terminais, a partir da pasta do projeto:
 
-    cd backend
-    mvn spring-boot:run
+**Back-end:**
 
-A API atende na porta 8080. As rotas de negócio exigem sessão autenticada e as escritas usam proteção CSRF. O front-end ainda não faz parte desta etapa; o acesso completo pelo navegador acompanhará sua publicação. Consulte a documentação da API para os endpoints de autenticação e operações disponíveis.
+```powershell
+cd backend
+mvn spring-boot:run
+```
 
-## Autor
+**Front-end:**
 
-[Brayan Mendes de Carvalho](https://github.com/BrayanMCarvalho)
+```powershell
+cd frontend
+npm ci
+npm run dev
+```
 
-## Referência
+Acesse **http://127.0.0.1:5173**. A API usa a porta **8080**, acessada pelo proxy `/api` do Vite. Use `Ctrl+C` nos dois terminais para parar.
 
-README organizado a partir do [template disponibilizado pelo professor](https://github.com/joaopauloaramuni/desenvolvimento-e-integracao-de-aplicacoes-web/blob/main/TEMPLATES/template_README.md), adaptado à etapa atual do repositório.
+O perfil padrão `demo` cria o banco local em `backend/.data/`, as contas e o catálogo na primeira execução. Os dados do catálogo são fictícios para uso acadêmico.
+
+### Contas de demonstração
+
+| Usuário | Senha | Perfil |
+| --- | --- | --- |
+| admin | admin | Administrador |
+| cliente | Demo@12345 | Cliente |
+| empresa | Demo@12345 | Empresa agente |
+| banco | Demo@12345 | Banco agente |
+
+Essas contas são criadas apenas no perfil de demonstração. Novos clientes podem se cadastrar na tela de entrada.
+
+### Supabase
+
+O perfil `supabase` lê `DB_URL`, `DB_USER` e `DB_PASSWORD` do ambiente. O esquema é criado pelo Flyway e validado pelo Hibernate. Não há credenciais reais no repositório.
+
+Veja [configuração do Supabase](docs/supabase.md). A execução no H2 não substitui a validação no PostgreSQL real.
+
+### Build
+
+```powershell
+cd backend
+mvn package
+cd ../frontend
+npm run build
+```
+
+Saídas: `backend/target/locar-0.1.0.jar` e `frontend/dist/`. O comando `npm run preview` pré-visualiza o build estático; para o fluxo integrado local, use `npm run dev` e a API.
+
+## Estrutura
+
+- `backend/src/main/java/br/com/locar/`: configurações, controllers, entidades, repositórios e serviços.
+- `backend/src/main/resources/`: perfis de execução, migrações SQL e catálogo de veículos.
+- `frontend/src/`: telas React, cliente da API e estilos.
+- `frontend/public/`: identidade visual e ilustrações.
+- `docs/`: requisitos, API, configuração do banco e modelos UML.
+
+## Fotos e limites
+
+As fotos são carregadas por URLs externas do Wikimedia Commons. Cada veículo registra fonte, autor e licença, acessíveis nos cards. As fotos são ilustrativas e podem mostrar outra versão ou ano; em caso de falha há uma alternativa visual.
+
+O protótipo não realiza pagamento, assinatura eletrônica ou integração bancária real. Crédito representa o registro acadêmico das condições concedidas pelo agente bancário.
+
+## Validação
+
+O back-end passou por 34 verificações HTTP em H2 isolado, cobrindo autenticação, permissões, cadastros, pedidos, contratos e crédito. A interface foi verificada no Chrome em desktop e celular, e seu build foi validado. A conexão real com o Supabase ainda será testada.
+
+## Autor e referências
+
+[Brayan Mendes de Carvalho](https://github.com/BrayanMCarvalho).
+
+README adaptado do [template da disciplina](https://github.com/joaopauloaramuni/desenvolvimento-e-integracao-de-aplicacoes-web/blob/main/TEMPLATES/template_README.md).
+
+- [Spring Boot](https://docs.spring.io/spring-boot/4.0/)
+- [React](https://react.dev/)
+- [Vite](https://vite.dev/guide/)
+- [Supabase](https://supabase.com/docs)

@@ -6,4 +6,4 @@ Primeira versão criada junto ao protótipo. Inclui clientes, empresas e bancos 
 
 Decisões incorporadas: administrador para provisionar agentes; até três rendimentos; alterações reabrem análise; vínculo por ID preserva clientes, avaliadores e bancos; estado terminal para contrato e cancelamento; URL/autor/licença da foto no automóvel.
 
-Não há diagramas anteriores fornecidos pela equipe. Ao receber feedback, preserve esta pasta v1 e crie v2 com o motivo de cada alteração e sua relação com o código.
+A versão v1 corresponde à estrutura do protótipo publicado. Futuras alterações de modelagem devem preservar esta versão e registrar os motivos e a relação com o código.

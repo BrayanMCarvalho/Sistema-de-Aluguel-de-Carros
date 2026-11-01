@@ -1,6 +1,6 @@
 # Requisitos e decisões
 
-Fonte: PDF do Laboratório 02 — Sistema de Aluguel de Carros, professor João Paulo Carneiro Aramuni. Os requisitos foram interpretados como especificação do trabalho; o desenvolvimento e as decisões de escopo seguem os pedidos do usuário.
+Fonte: PDF do Laboratório 02 — Sistema de Aluguel de Carros, professor João Paulo Carneiro Aramuni.
 
 ## Histórias e critérios de aceitação
 
@@ -62,6 +62,6 @@ stateDiagram-v2
 - As fotos externas são ilustrativas e podem mostrar outra versão/ano; origem e licença acompanham cada veículo.
 - Não há pagamento, assinatura eletrônica, recuperação de senha, documento PDF ou auditoria de todas as avaliações nesta etapa.
 
-## Entrega acadêmica pendente de ação da equipe
+## Pendência de integração
 
-Conectar o ambiente real do Supabase, preencher os integrantes e URL do repositório, publicar os arquivos no GitHub e registrar os feedbacks do professor com novas versões da modelagem. A versão v1 corresponde ao código atual; não foram inventadas versões anteriores.
+Conectar a instância real do Supabase e validar os fluxos no PostgreSQL. O trabalho é individual, com autoria de Brayan Mendes de Carvalho. A modelagem v1 representa as entidades, relações e subsistemas do código publicado.
