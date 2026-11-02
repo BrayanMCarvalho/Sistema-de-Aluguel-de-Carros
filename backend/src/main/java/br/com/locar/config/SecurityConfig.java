@@ -26,7 +26,8 @@ public class SecurityConfig {
 	SecurityFilterChain security(HttpSecurity http) throws Exception {
 		return http
 				.authorizeHttpRequests(
-						a -> a.requestMatchers("/api/auth/csrf", "/api/auth/register", "/api/auth/login", "/error")
+						a -> a.requestMatchers("/", "/index.html", "/assets/**", "/logo.svg", "/car-hero.svg",
+								"/api/health", "/api/auth/csrf", "/api/auth/register", "/api/auth/login", "/error")
 								.permitAll().anyRequest().authenticated())
 				.formLogin(f -> f.loginProcessingUrl("/api/auth/login")
 						.successHandler((req, res, auth) -> {

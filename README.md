@@ -112,6 +112,12 @@ npm run build
 
 Saídas: `backend/target/locar-0.1.0.jar` e `frontend/dist/`. O comando `npm run preview` pré-visualiza o build estático; para o fluxo integrado local, use `npm run dev` e a API.
 
+## Hospedagem
+
+O projeto inclui um `Dockerfile` que compila o React e o serve pelo próprio Spring Boot, mantendo interface e API em um único domínio. O banco e as imagens continuam no Supabase.
+
+Veja [publicação no Render](docs/render.md) para os campos e variáveis de ambiente. A configuração de hospedagem não inclui credenciais.
+
 ## Estrutura
 
 - `backend/src/main/java/br/com/locar/`: configurações, controllers, entidades, repositórios e serviços.

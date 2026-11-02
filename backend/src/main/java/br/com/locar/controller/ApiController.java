@@ -21,6 +21,11 @@ public class ApiController {
 		return service.user(p.getName());
 	}
 
+	@GetMapping("/health")
+	Map<String, String> health() {
+		return Map.of("status", "UP");
+	}
+
 	@GetMapping("/auth/csrf")
 	Map<String, String> csrf(CsrfToken token) {
 		return Map.of("token", token.getToken(), "headerName", token.getHeaderName());
