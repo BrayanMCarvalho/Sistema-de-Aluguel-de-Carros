@@ -16,7 +16,7 @@ Fonte: PDF do Laboratório 02 — Sistema de Aluguel de Carros, professor João 
 | HU08 | Como agente, quero emitir contrato após aprovação. | Apenas APROVADO; registra propriedade de cliente/empresa/banco; não admite sobreposição no mesmo veículo. | `contract`, `ContractForm` |
 | HU09 | Como banco, quero associar crédito ao contrato de aluguel. | Banco autenticado é o concedente; crédito positivo, até o valor do aluguel e com 1–120 parcelas. | `Contrato.bancoId`, `valorCredito`, `parcelas` |
 | HU10 | Como administrador, quero cadastrar agentes e consultar usuários. | Somente ADMIN acessa o painel; sem exposição de senhas; perfil público não é promovido. | `/api/admin` |
-| HU11 | Como usuário, quero visualizar fotos dos veículos. | Catálogo de 24 carros, URLs externas, créditos e substituto quando a foto falha. | `catalogo.json`, `CarImage` |
+| HU11 | Como usuário, quero visualizar fotos dos veículos. | Catálogo de 24 carros, imagens armazenadas no Supabase Storage e substituto quando a imagem falha. | `catalogo.json`, `CarImage` |
 
 ## Regras de negócio
 
@@ -53,15 +53,15 @@ stateDiagram-v2
 ## Decisões e limites
 
 - Escopo de carros em geral nesta primeira versão. Localiza serve de referência de navegação; identidade e código são próprios.
-- Supabase PostgreSQL é o banco da entrega; perfil H2 facilita demonstração sem credenciais. Nenhum teste com uma conta real do Supabase foi executado sem as credenciais.
+- Supabase PostgreSQL é o banco integrado e validado; o perfil H2 facilita demonstração sem credenciais.
 - Crédito está no registro `Contrato`, opcional e vinculado ao banco; não representa integração bancária real nem cobrança.
 - Usuários e papéis são modelados por enum para evitar subclasses com dados repetidos; cliente tem cadastro separado com o mesmo identificador do usuário.
 - Identificadores de cliente, agente e banco são chaves estrangeiras; `Pedido.automovel` usa associação JPA. Os diagramas mostram a relação de domínio e indicam as referências por ID.
 - Datas atuais seguem o relógio do servidor; ao publicar para o Brasil, configure o servidor com `America/Sao_Paulo`.
 - A matrícula é o identificador interno do carro. Não é tratada como placa.
-- As fotos externas são ilustrativas e podem mostrar outra versão/ano; origem e licença acompanham cada veículo.
+- As imagens do catálogo ficam no Supabase Storage; os metadados são preservados no cadastro do veículo.
 - Não há pagamento, assinatura eletrônica, recuperação de senha, documento PDF ou auditoria de todas as avaliações nesta etapa.
 
-## Pendência de integração
+## Integração concluída
 
-Conectar a instância real do Supabase e validar os fluxos no PostgreSQL. O trabalho é individual, com autoria de Brayan Mendes de Carvalho. A modelagem v1 representa as entidades, relações e subsistemas do código publicado.
+Banco Supabase PostgreSQL conectado, migrações aplicadas e fluxos principais validados. As imagens do catálogo estão armazenadas no Supabase Storage. O trabalho é individual, com autoria de Brayan Mendes de Carvalho. A modelagem v1 corresponde às entidades, relações e subsistemas implementados.

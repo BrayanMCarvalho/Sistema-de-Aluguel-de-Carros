@@ -1302,14 +1302,6 @@ td:last-child {
     background: var(--lime)
 }
 
-.photo-credit {
-    display: block;
-    margin-top: 9px;
-    font-size: 8px;
-    color: #9aa58f;
-    text-align: right;
-    text-underline-offset: 3px
-}
 
 .footer {
     display: flex;
@@ -1397,12 +1389,6 @@ td:last-child {
     border-color: #253d29
 }
 
-.catalog-note {
-    font-size: 10px;
-    color: #949e87;
-    line-height: 1.7;
-    margin-top: 25px
-}
 
 .profile-panel {
     padding: 25px;
@@ -2152,9 +2138,6 @@ td:last-child {
         width: 18px
     }
 
-    .photo-credit {
-        font-size: 7px
-    }
 
     .fleet-heading {
         gap: 12px;
@@ -2367,9 +2350,6 @@ td:last-child {
         gap: 7px
     }
 
-    .catalog-note {
-        font-size: 9px
-    }
 
     .income-row {
         font-size: 10px

@@ -10,7 +10,7 @@ Projeto individual do Laboratório 02 de Desenvolvimento e Integração de Aplic
 
 ## Status
 
-Protótipo completo publicado: back-end, interface web e modelagem. O sistema funciona no perfil de demonstração local. A conexão e a validação na instância real do Supabase são a pendência para concluir a integração do banco exigido pelo laboratório.
+Protótipo completo com back-end, interface web, modelagem e integração ao Supabase PostgreSQL. As migrações e os fluxos de autenticação, cadastros, pedidos e contratos foram validados no banco real. O perfil de demonstração local com H2 também está disponível.
 
 ## Sobre o projeto
 
@@ -20,7 +20,7 @@ A Locar permite que clientes solicitem, consultem, alterem e cancelem pedidos de
 
 - Cadastro de clientes e login obrigatório com usuário e senha.
 - Cadastro com RG, CPF, nome, endereço, profissão e até três empregos/rendimentos.
-- Catálogo de 24 veículos com matrícula, ano, marca, modelo, placa e fotos online com créditos.
+- Catálogo de 24 veículos com matrícula, ano, marca, modelo, placa e imagens do catálogo.
 - Criação, consulta, alteração e cancelamento de pedidos.
 - Avaliação financeira por agentes com parecer obrigatório.
 - Contratos com propriedade em nome de cliente, empresa ou banco.
@@ -97,9 +97,9 @@ Essas contas são criadas apenas no perfil de demonstração. Novos clientes pod
 
 ### Supabase
 
-O perfil `supabase` lê `DB_URL`, `DB_USER` e `DB_PASSWORD` do ambiente. O esquema é criado pelo Flyway e validado pelo Hibernate. Não há credenciais reais no repositório.
+O perfil `supabase` lê `DB_URL`, `DB_USER` e `DB_PASSWORD` do ambiente. A conexão foi validada via Session Pooler com SSL no PostgreSQL 17.11. O Flyway aplica as migrações V1–V3, e o Hibernate valida o esquema. Não há credenciais reais no repositório.
 
-Veja [configuração do Supabase](docs/supabase.md). A execução no H2 não substitui a validação no PostgreSQL real.
+Veja [configuração do Supabase](docs/supabase.md). Para executar nesse perfil, defina `SPRING_PROFILES_ACTIVE=supabase` junto das variáveis de conexão antes de iniciar o back-end. Sem essa seleção, o perfil padrão é `demo`.
 
 ### Build
 
@@ -120,15 +120,13 @@ Saídas: `backend/target/locar-0.1.0.jar` e `frontend/dist/`. O comando `npm run
 - `frontend/public/`: identidade visual e ilustrações.
 - `docs/`: requisitos, API, configuração do banco e modelos UML.
 
-## Fotos e limites
-
-As fotos são carregadas por URLs externas do Wikimedia Commons. Cada veículo registra fonte, autor e licença, acessíveis nos cards. As fotos são ilustrativas e podem mostrar outra versão ou ano; em caso de falha há uma alternativa visual.
+## Limites do protótipo
 
 O protótipo não realiza pagamento, assinatura eletrônica ou integração bancária real. Crédito representa o registro acadêmico das condições concedidas pelo agente bancário.
 
 ## Validação
 
-O back-end passou por 34 verificações HTTP em H2 isolado, cobrindo autenticação, permissões, cadastros, pedidos, contratos e crédito. A interface foi verificada no Chrome em desktop e celular, e seu build foi validado. A conexão real com o Supabase ainda será testada.
+O back-end passou por 34 verificações HTTP tanto no H2 isolado quanto no Supabase PostgreSQL real, cobrindo autenticação, permissões, cadastros, pedidos, contratos e crédito. A interface foi verificada no Chrome em desktop e celular, e seu build foi validado. Os dados temporários das verificações no banco real foram removidos.
 
 ## Autor e referências
 
